@@ -1,0 +1,2 @@
+# configneovim
+neovim config
