@@ -12,6 +12,7 @@ autocmd BufNewFile,BufReadPost *.coffee            setfiletype coffee
 autocmd BufNewFile,BufReadPost *.txt               setfiletype text
 autocmd BufNewFile,BufReadPost *.yml.enc.*         setfiletype yml_enc
 autocmd BufNewFile,BufReadPost *.css.scss          setfiletype scss
+
 autocmd BufNewFile,BufRead     *.md 	   	   setlocal filetype=markdown
 autocmd BufNewFile,BufRead     *.yml.enc.*         set syntax=yaml
 autocmd BufNewFile,BufRead     *.tpl               set filetype=html
@@ -28,14 +29,14 @@ autocmd BufNewFile,BufRead     *.fragmentshader    setlocal filetype=cpp
 autocmd BufNewFile,BufRead     *.vertexshader      setlocal filetype=cpp
 autocmd BufNewFile,BufRead     *.json.jbuilder 	   setlocal filetype=ruby
 autocmd BufNewFile,BufRead     *.jsx 	   	   setlocal filetype=javascript
-
 autocmd BufNewFile,BufRead     *.json.jbuilder 	   setlocal filetype=ruby
+
 autocmd FileType html        setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType json        setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType css         setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType javascript  setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType typescript  setlocal shiftwidth=2 tabstop=2 expandtab
-autocmd FileType python      setlocal shiftwidth=2 tabstop=2 expandtab
+autocmd FileType python      setlocal shiftwidth=4 tabstop=4 expandtab
 autocmd FileType go          setlocal shiftwidth=4 tabstop=4 expandtab
 autocmd FileType ruby        setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType eruby       setlocal shiftwidth=2 tabstop=2 expandtab
@@ -48,6 +49,7 @@ autocmd FileType php         setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType cpp 	     setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType markdown    setlocal shiftwidth=2 tabstop=2 expandtab
 
+
 call plug#begin('~/.vim/plugged')
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'vim-airline/vim-airline'
@@ -58,12 +60,19 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'arcticicestudio/nord-vim'
 Plug 'tveskag/nvim-blame-line'
 Plug 'junegunn/vim-easy-align'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 call plug#end()
 
 colorscheme nord
 
-let g:ale_linters = { 'ruby': ['rubocop'] }
+highlight Search ctermbg=blue ctermfg=white guibg=#5D3FD3 guifg=#FFFFFF
+highlight IncSearch ctermbg=magenta ctermfg=white guibg=#9933FF guifg=#FFFFFF
+
+let g:ale_linters = { 'ruby': ['rubocop'], 'python': ['flake8'], 'typescript': ['eslint'], 'javascript': ['eslint'] }
 let g:ale_ruby_rubocop_executable = 'rubocop'
+let g:ale_javascript_eslint_executable = 'eslint'
+let g:ale_javascript_eslint_options = '--no-warn-ignored'
 
 let g:ale_fix_on_save = 1
 let g:ale_linters_explicit = 1
@@ -79,3 +88,5 @@ nnoremap <silent> <leader>g :ToggleBlameLine<CR>
 nnoremap <A-left> :bp<CR>
 nnoremap <A-right> :bn<CR>
 xmap <leader>ga :EasyAlign<CR>
+
+let g:airline_section_y = '%{strftime("%H:%M")}'
